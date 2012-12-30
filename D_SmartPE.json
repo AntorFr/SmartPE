@@ -1,0 +1,166 @@
+{
+    "flashicon": "http://mios.antor.fr/Icons/SmartPE.png",
+    "imgIconBody": "",
+    "imgIconDimmable": "",
+    "imgIconTurnable": "",
+    "imgIconMin": "",
+    "imgIconMax": "",
+    "halloIconsDir": "pics\/hallo",
+    "state_icons": [
+        "SmartPE_0.png",
+        "SmartPE_100.png"
+    ],
+    "x": "2",
+    "y": "1",
+    "inScene": "0",
+    "DisplayStatus": {
+        "Service": "urn:antor-fr:serviceId:SPE1",
+        "Variable": "DeviceState",
+        "MinValue": "0",
+        "MaxValue": "1"
+    },
+    "doc_url": {
+        "doc_language": 1,
+        "doc_manual": 1,
+        "doc_version": 1,
+        "doc_platform": 0,
+        "doc_page": "devices" 
+    },
+    "Tabs": [
+        {
+            "Label": {
+                "lang_tag": "tabname_control",
+                "text": "Data" 
+            },
+            "Position": "0",
+            "TabType": "flash",
+            "ControlGroup": [
+                {
+                    "id": "1",
+                    "type": "info",
+                    "scenegroup": "1"
+                }
+            ],
+            "SceneGroup":[
+                {
+                    "id": "1",
+                    "top": "0",
+                    "left": "0",
+                    "x": "2",
+                    "y": "1"
+                }
+            ],
+            "Control": [
+             {
+                "ControlGroup":"1",
+       	    "ControlPair":"1",
+    		    "ControlHeader":"1",
+                "ControlType": "label",
+                "top": "1.5",
+                "left": "0",
+                "Label": {
+                    "lang_tag": "lblMsg",
+                    "text": "DeviceState:" 
+                },
+                "Display": {
+                    "Top": 10,
+                    "Left": 20,
+                    "Width": 100,
+                    "Height": 20 
+                } 
+              },
+              {
+   			"ControlGroup":"1",
+     			"ControlPair":"1",
+     			"ControlHeader":"1",
+                "ControlType": "variable",
+                "top": "1.5",
+                "left": "1",
+                "Display": {
+                    "Service": "urn:antor-fr:serviceId:SPE1",
+                    "Variable": "DeviceState",
+                    "Top": 10,
+                    "Left": 120,
+                    "Width": 50,
+                    "Height": 20 
+                } 
+              }
+          ]
+         },
+        {
+            "Label": {
+                "lang_tag": "advanced",
+                "text": "Advanced" 
+            },
+            "Position": "2",
+            "TabType": "javascript",
+            "ScriptName": "shared.js",
+            "Function": "advanced_device" 
+        }
+    ],
+    "eventList": {
+         "event_1": {
+             "label": "Device is on or off",
+             "serviceId": "urn:antor-fr:serviceId:SPE1",
+             "argumentList": {
+                 "argument_1": {
+                     "dataType": "string",
+                     "defaultValue": "",
+                     "allowedValueList": {
+                         "Off": "0",
+                         "On": "1" 
+                     },
+                     "name": "DeviceState",
+                     "comparisson": "=",
+                     "prefix": "Which mode",
+                     "suffix": "" 
+                 } 
+             } 
+         }
+     },
+     "DeviceType": "urn:antor-fr:device:SmartPE:1",
+    "eventList2": [
+        {
+            "id": 1,
+            "label": {
+                "lang_tag": "hft_device_is_on_or_off",
+                "text": "Device is on or off"
+            },
+            "serviceId": "urn:antor-fr:serviceId:SPE1",
+            "argumentList": [
+                {
+                    "id": 1,
+                    "dataType": "string",
+                    "defaultValue": "",
+                    "allowedValueList": [
+                        {
+                            "value": "0",
+                            "HumanFriendlyText": {
+                                "lang_tag": "hft_Off",
+                                "text": "Off"
+                            }
+                        },
+                        {
+                            "value": "1",
+                            "HumanFriendlyText": {
+                                "lang_tag": "hft_On",
+                                "text": "On"
+                            }
+                        }
+                    ],
+                    "name": "DeviceState",
+                    "comparisson": "=",
+                    "prefix": {
+                        "lang_tag": "hft_which_mode",
+                        "text": "Which mode"
+                    },
+                    "suffix": {},
+                    "HumanFriendlyText": {
+                        "lang_tag": "hft_argumentList_device_is_on_or_off_event",
+                        "text": "_DEVICE_NAME_: DeviceState is _ARGUMENT_VALUE_"
+                    }
+                 }
+            ]
+        }
+    ]
+}

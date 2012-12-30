@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<implementation>
+ 
+  <functions>
+    --- Smart Power Event
+    --- Author : Antor, based on Ap15e PED work's
+
+
+    local SPE_SID                = 'urn:antor-fr:serviceId:SPE1'
+    local ENERGY_METERING_SID    = 'urn:micasaverde-com:serviceId:EnergyMetering1'
+            
+    function Startup(lul_device)
+
+      refresh_display(lul_device)
+      
+    end
+
+    function readSettings(lul_device)
+      local data = {}
+      
+      data.DeviceState            = tonumber( readVariableOrInit( lul_device, SPE_SID, 'DeviceState'           , '0'   ) )
+      data.EnergyMeteringDeviceID = tonumber( readVariableOrInit( lul_device, SPE_SID, 'EnergyMeteringDeviceID', ''    ) )
+      data.ThresholdU             = tonumber( readVariableOrInit( lul_device, SPE_SID, 'Threshold UP'          , '0'   ) )
+      data.ThresholdD             = tonumber( readVariableOrInit( lul_device, SPE_SID, 'Threshold Down'        , '0'   ) )
+      data.SamplingInterval       = tonumber( readVariableOrInit( lul_device, SPE_SID, 'SamplingInterval'      , '60'  ) )
+      data.OffDelay               = tonumber( readVariableOrInit( lul_device, SPE_SID, 'OffDelay'              , '300' ) )
+      data.HighWattageTimestamp   = tonumber( readVariableOrInit( lul_device, SPE_SID, 'HighWattageTimestamp'  , ''    ) )
+      
+      return data
+    end
+
+    function refresh_display(lul_device)
+      local data = readSettings(lul_device)
+      local DeviceState = luup.variable_get(SPE_SID, 'DeviceState', lul_device)
+      DeviceState = tonumber(DeviceState) or 0
+      local Threshold
+
+      if DeviceState == 1 then
+        luup.call_timer('refresh_display', 1, tostring(math.floor(data.SamplingInterval/4)),'', '')
+        Threshold = data.ThresholdD
+      else
+        luup.call_timer( 'refresh_display', 1, tostring( data.SamplingInterval ),'','')
+        Threshold = data.ThresholdU
+      end
+      
+      local wattage = luup.variable_get( ENERGY_METERING_SID, 'Watts', data.EnergyMeteringDeviceID )
+      wattage = tonumber( wattage ) or 0
+      
+      
+      if 
+    
+      if wattage > Threshold then
+        data.HighWattageTimestamp = os.time()
+        luup.variable_set( SPE_SID, 'HighWattageTimestamp', tostring( data.HighWattageTimestamp ), lul_device )
+        luup.variable_set( SPE_SID, 'DeviceState', '1', lul_device )
+      end
+
+     if ( os.time() - ( tonumber( data.HighWattageTimestamp ) or os.time() ) ) > data.OffDelay then
+       luup.variable_set( SPE_SID, 'DeviceState', '0', lul_device )
+      end
+   
+    end
+         
+  </functions>
+
+  <incoming>
+    <lua>
+    
+    </lua>
+  </incoming>
+
+  <startup>Startup</startup>
+  <files>L_SmartVT1.lua</files>
+</implementation>

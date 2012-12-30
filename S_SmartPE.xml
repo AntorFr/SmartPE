@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<scpd xmlns="urn:schemas-upnp-org:service-1-0">
+<specVersion>
+  <major>1</major>
+  <minor>0</minor>
+</specVersion>
+<serviceStateTable>
+
+  <stateVariable>
+    <name>DeviceState</name>
+    <sendEventsAttribute>yes</sendEventsAttribute>
+    <dataType>string</dataType>
+    <defaultValue></defaultValue>
+    <shortCode>devicestate</shortCode>
+  </stateVariable>
+
+  <stateVariable>
+    <name>EnergyMeteringDeviceID</name>
+    <sendEventsAttribute>no</sendEventsAttribute>
+    <dataType>string</dataType>
+    <defaultValue></defaultValue>
+    <shortCode>energymeteringdeviceID</shortCode>
+  </stateVariable>
+
+  <stateVariable>
+    <name>Threshold</name>
+    <sendEventsAttribute>no</sendEventsAttribute>
+    <dataType>string</dataType>
+    <defaultValue></defaultValue>
+    <shortCode>threshold</shortCode>
+  </stateVariable>
+
+  <stateVariable>
+    <name>SamplingInterval</name>
+    <sendEventsAttribute>no</sendEventsAttribute>
+    <dataType>string</dataType>
+    <defaultValue></defaultValue>
+    <shortCode>samplinginterval</shortCode>
+  </stateVariable>
+
+  <stateVariable>
+    <name>OffDelay</name>
+    <sendEventsAttribute>no</sendEventsAttribute>
+    <dataType>string</dataType>
+    <defaultValue></defaultValue>
+    <shortCode>offdelay</shortCode>
+  </stateVariable>
+
+  <stateVariable>
+    <name>HighWattageTimestamp</name>
+    <sendEventsAttribute>no</sendEventsAttribute>
+    <dataType>string</dataType>
+    <defaultValue></defaultValue>
+    <shortCode>highwattagetimestamp</shortCode>
+  </stateVariable>
+
+</serviceStateTable>
+</scpd>
