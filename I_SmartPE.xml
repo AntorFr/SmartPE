@@ -45,9 +45,6 @@
       
       local wattage = luup.variable_get( ENERGY_METERING_SID, 'Watts', data.EnergyMeteringDeviceID )
       wattage = tonumber( wattage ) or 0
-      
-      
-      if 
     
       if wattage > Threshold then
         data.HighWattageTimestamp = os.time()
